@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .footer_body{
-  margin-top: 150px;
+  margin-top: 100px;
   padding: 50px 0;
   background-color: #d5d5d5;
 }

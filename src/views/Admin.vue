@@ -82,7 +82,7 @@
                             </a>
                         </li>
                         <li>
-                            <router-link to="/Home">
+                            <router-link to="/home">
                                 <i class="fa fa-home"></i>
                                 <span>Home Page</span>
                             </router-link>
