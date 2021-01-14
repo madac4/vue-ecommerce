@@ -2,7 +2,8 @@
   <div class="home">
     <Navbar></Navbar>
     <hero></hero>
-    <product></product>
+
+    <productsRow></productsRow>
     <Footer></Footer>
     <login></login>
   </div>
@@ -15,7 +16,7 @@ import Login from "@/components/Login.vue";
 export default {
   name: "Home",
   components: {
-    Login,
+    Login
   }
 };
 </script>

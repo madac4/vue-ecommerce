@@ -13,28 +13,39 @@
 
       <h2>Product List</h2>
 
-      <table border="1">
-          <thead>
-              <tr>
-                  <th>Nr</th>
-                  <th>Name</th>
-                  <th>Price</th>
-              </tr>
-          </thead>
+        <div class="table-responsive">
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nr</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
 
-          <tbody> 
-              <tr v-for="(product, index) in products" :key="index">
-                  <td>{{index +1}}</td>
-                  <td>{{product.name}}</td>
-                  <td>{{product.price}}</td>
-              </tr>
-          </tbody>
-      </table>
+                <tbody> 
+                    <tr v-for="(product, index) in products" :key="index">
+                        <td>{{index +1}}</td>
+                        <td>{{product.data().name}}</td>
+                        <td>{{product.data().price}}</td>
+                        <td>
+                            <button class="btn btn-primary">Edit</button>
+                            <button @click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+     
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+    .btn-primary{
+        margin-right: 10px;
+    }
     h3{
         margin-bottom: 30px;
     }
@@ -51,7 +62,7 @@
 </style>
 
 <script>
-import { db} from '../firebase';
+import { db } from '../firebase';
 export default {
   name: "Products",
   props: {
@@ -67,15 +78,32 @@ export default {
       }
   },
   methods: {
+
       loadOnce:() =>{
       location.reload();
     },
+          deleteProduct(doc){
+
+          if (confirm('Are you sure?')) {
+
+
+              db.collection("products").doc(doc).delete().then(function() {
+                    console.log("Product was successfully deleted!");
+                }).catch(function(error) {
+                    console.error("Error removing product: ", error);
+                });
+
+
+          }else{
+              alert('hi')
+          }
+      },
       readData(){
             db.collection("products").get().then((querySnapshot) => {
 
         querySnapshot.forEach((doc) => {
 
-            this.products.push(doc.data());
+            this.products.push(doc);
 
 
         });
